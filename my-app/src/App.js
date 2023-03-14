@@ -9,9 +9,9 @@ function App() {
   const [updatedRecipe, setUpdatedRecipe] = useState('');
 
   const handleClick = () => {
-    setUpdatedRecipe(inputValue);
+    //API Call
     makeRequest(updatedRecipe);
-  }
+  };
 
   return (
     <BackGround>
@@ -20,12 +20,12 @@ function App() {
         <Paragraph>
           Recipe Getter
         </Paragraph>
-
+        
         <RecipeInput placeholder="apple" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
         <span>Searching: {inputValue}</span>
 
         <Container>
-        <Button onClick={handleClick}>Get Results</Button>
+        <Button onClick={() => {setUpdatedRecipe(inputValue);handleClick()}}>Get Results</Button>
         </Container>
 
 

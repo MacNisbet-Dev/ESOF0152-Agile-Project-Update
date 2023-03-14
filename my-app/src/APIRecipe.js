@@ -18,8 +18,8 @@ export function makeRequest(value) {
   console.log(value);
   axios.request(createOptions(value)).then(function (response) {
     console.log(response.data);
+    alert(JSON.stringify(response.data, null, 4))
   }).catch(function (error) {
     console.error(error);
   });
 }
-
