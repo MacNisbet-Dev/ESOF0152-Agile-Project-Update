@@ -6,11 +6,10 @@ import { makeRequest } from './APIRecipe'
 
 function App() {
   const [inputValue, setInputValue] = useState('');
-  const [updatedRecipe, setUpdatedRecipe] = useState('');
 
-  const handleClick = () => {
-    //API Call
-    makeRequest(updatedRecipe);
+  // Handles search button click
+  const handleClick1 = (newValue) => {
+    makeRequest(newValue);
   };
 
   return (
@@ -25,7 +24,7 @@ function App() {
         <span>Searching: {inputValue}</span>
 
         <Container>
-        <Button onClick={() => {setUpdatedRecipe(inputValue);handleClick()}}>Get Results</Button>
+        <Button onClick={() => {handleClick1(inputValue)}}>Get Results</Button>
         </Container>
 
 
