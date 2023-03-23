@@ -17,7 +17,7 @@ function App() {
       <Header>
       <RenderLogo size={100}/>
         <Paragraph>
-          Recipe Getter
+          Recipe Get
         </Paragraph>
         
         <RecipeInput placeholder="apple" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
