@@ -162,4 +162,3 @@ const ValueInput = styled.input.attrs(props => ({
 `;
 
 export default App;
-
