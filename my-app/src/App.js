@@ -58,9 +58,9 @@ function App() {
   return (
     <BackGround>
       <Header>
-      <RenderLogo size={100}/>
+      <RenderLogo size={300}/>
         <LogoText>
-          Kitchen Treasures
+          Food & Recipe Search
         </LogoText>
         <RegularText>
           <div>
@@ -76,7 +76,6 @@ function App() {
           </SearchingSpan>
           </div>
 
-
           <div>
             <SearchingSpan>
               Quantity:
@@ -90,14 +89,15 @@ function App() {
           </div>
           
         </RegularText>
-        
+      </Header>
+
         <SearchingSpan>
           <CardsWrapper>
             {FoodResponseData && <FoodCards FoodResponseData={FoodResponseData} amount={count} onSelectLabel={setInputRecipeValue}/>}
             {RecipeResponseData && <RecipeCards FoodResponseData={RecipeResponseData} amount={count} />}
-        </CardsWrapper>
+          </CardsWrapper>
         </SearchingSpan>
-      </Header>
+      
     </BackGround>
   );
 }
@@ -108,14 +108,16 @@ const CardsWrapper = styled.div`
 `
 
 const BackGround = styled.div`
-background-color: #7AEF68;
-min-height: 2160px;
-`
+  background: linear-gradient(to bottom, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);
+  min-height: 100vh;
+`;
 
 const Header = styled.header`
-  background-color: green;
+  background-color: #4f9b7b;
   min-width: 800px;
   padding-bottom: 10px;
+  border-bottom: 3px solid black;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
 `
 
 const LogoText = styled.p`
@@ -134,16 +136,16 @@ font-family: Arial, Helvetica, sans-serif;
 `
 
 const Button = styled.button`
-  background: white;
+  background-color: black;
+  color: white;
   font-size: 20px;
-  border-radius: 3px;
-  border: 2px solid red;
-  color: red;
-  margin: 0.5em 1em;
-  padding: 0.25em 2em;
-  width: 200px;
-  height: 80px;
+  padding: 10px 10px;
+  border-radius: 5px;
   cursor: pointer;
+  width: 200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-left: 50px;
 `;
 
 const SearchingSpan = styled.span`
