@@ -3,34 +3,24 @@ import React from "react";
 
 // Renders full array of returned results
 // Trying to figure out how to use the measures values to calculate certain amounts
-export function RecipeCards({ FoodResponseData, amount}) {
+export function RecipeCards({ recipes }){
   return (
-    <div>
-      {FoodResponseData.hints.map((hint, index) => {
-        return (
-          <CardContainer key={index}>
-            <RecipeCard>
-              <CardHeader>{hint.food.label}</CardHeader>
-              <CardImage
-                src={
-                  hint.food.image ||
-                  'https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg'
-                }
-                alt={hint.food.label}
-              />
-              <CardText> Calories: {Math.round(amount * hint.food.nutrients.ENERC_KCAL * 100) / 100} kcal </CardText>
-              <CardText>Fat: {Math.round(amount * hint.food.nutrients.FAT * 100) / 100} grams</CardText>
-              <CardText>Protein: {Math.round(amount * hint.food.nutrients.PROCNT * 100) / 100} grams</CardText>
-              <CardText>Carbs: {Math.round(amount * hint.food.nutrients.CHOCDF * 100) / 100} grams</CardText>
-
-            </RecipeCard>
-          </CardContainer>
-        );
-      })}
-    </div>
+    <RecipeCard>
+      <CardContainer>
+        {Array.isArray(recipes) && recipes.map((recipe, index) => (
+          <RecipeItem key={index}>
+            <CardHeader>{recipe.label}</CardHeader>
+            <CardImage src={recipe.image} alt={recipe.label} />
+            <CardText>Calories: {recipe.calories.toFixed(2)}</CardText>
+            <CardText>Cuisine Type: {recipe.cuisineType.join(', ')}</CardText>
+            <CardText><a href={recipe.url}>Link to recipe</a></CardText>
+            
+          </RecipeItem>
+        ))}
+      </CardContainer>
+    </RecipeCard>
   );
-}
-
+};
 const CardHeader = styled.header`
   font-size: 40px;
   font-weight: bold;
@@ -56,6 +46,12 @@ const CardContainer = styled.div`
   min-width: 200px;
   max-width: 300px;
 `
+const RecipeItem = styled.li`
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+`;
 
 const RecipeCard = styled.div`
   margin-bottom: 20px;
