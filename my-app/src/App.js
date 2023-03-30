@@ -19,9 +19,9 @@ function App() {
   const handleClick1 = () => {
     makeFoodRequest(InputFoodValue)
       .then(response => {
-        setFoodResponseData(response);
         console.log("Ingredient Data: ");
         console.log(response);
+        setFoodResponseData(response);
       })
       .catch(error => {
         console.error(error);

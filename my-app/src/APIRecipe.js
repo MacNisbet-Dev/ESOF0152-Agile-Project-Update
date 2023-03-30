@@ -1,25 +1,25 @@
 import axios from "axios";
 
 function createRecipeOptions(value){
-const Options = {
-  method: 'GET',
-  url: 'https://edamam-recipe-search.p.rapidapi.com/search',
-  params: {value},
-  headers: {
-    'X-RapidAPI-Key': 'f4509876e7msh875d9e662afe170p18439bjsnf07d0ac0b68f',
-    'X-RapidAPI-Host': 'edamam-recipe-search.p.rapidapi.com'
-        }
+  const options = {
+    method: 'GET',
+    url: 'https://edamam-recipe-search.p.rapidapi.com/search',
+    params: {q: value},
+    headers: {
+      'X-RapidAPI-Key': '7692bae7cfmshac9d83a53f8151bp19f475jsn305a0583021f',
+      'X-RapidAPI-Host': 'edamam-recipe-search.p.rapidapi.com'
     }
-    return Options;
-};
+  };
+  return options
+}
 
 // Handles the API requests
 export function makeRecipeRequest(value) { 
-    const options = createRecipeOptions(value);
-    return axios.request(options)
-      .then(response => response.data)
-      .catch(error => {
-        console.error(error);
-        throw error;
-      });
-  }
+  const stringValue = String(value);
+  const options = createRecipeOptions(stringValue);
+  axios.request(options).then(function (response) {
+    console.log(response.data);
+  }).catch(function (error) {
+    console.error(error);
+  });
+}

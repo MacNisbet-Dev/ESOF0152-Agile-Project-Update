@@ -98,7 +98,13 @@ const CardContainer = styled.div`
   padding-right: 40px;
   min-width: 200px;
   max-width: 300px;
-`
+  transition: box-shadow 0.3s ease-in-out; 
+  box-shadow: none; 
+  
+  &:hover {
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3); 
+  }
+`;
 
 const RecipeCard = styled.div`
   margin-bottom: 20px;
