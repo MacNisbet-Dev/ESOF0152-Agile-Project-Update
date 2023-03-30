@@ -33,7 +33,7 @@ function App() {
   const handleClick2 = () => {
     makeRecipeRequest(InputRecipeValue)
       .then(response => {
-        setRecipeResponseData(response);
+        setRecipeResponseData(response.data.hits.map(hit => hit.recipe));
         console.log("Recipe Data: ");
         console.log(response);
       })
@@ -94,7 +94,7 @@ function App() {
         <SearchingSpan>
           <CardsWrapper>
             {FoodResponseData && <FoodCards FoodResponseData={FoodResponseData} amount={count} onSelectLabel={setInputRecipeValue}/>}
-            {RecipeResponseData && <RecipeCards FoodResponseData={RecipeResponseData} amount={count} />}
+            {RecipeResponseData && <RecipeCards recipes={RecipeResponseData}/>}
           </CardsWrapper>
         </SearchingSpan>
       
