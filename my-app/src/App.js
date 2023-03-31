@@ -7,12 +7,15 @@ import { makeRecipeRequest } from './APIRecipe.js';
 import { FoodCards } from './FoodCards.js';
 import { RecipeCards } from './RecipeCards.js';
 
+const SAVE_KEY = "savedRecipes";
+
 function App() {
   const [InputFoodValue, setInputFoodValue] = useState('');
   const [InputRecipeValue, setInputRecipeValue] = useState('');
   const [FoodResponseData, setFoodResponseData] = useState(null);
   const [RecipeResponseData, setRecipeResponseData] = useState(null);
   const [count, setCount] = React.useState(1);
+  const [savedRecipes, setSavedRecipes] = useState(JSON.parse(localStorage.getItem(SAVE_KEY)) || {});
 
   // Handles search button click
   // Stores the response data, when there is data renders the FoodCards component
@@ -35,27 +38,12 @@ function App() {
       .then(response => {
         setRecipeResponseData(response.data.hits.map(hit => hit.recipe));
         console.log("Recipe Data: ");
-        console.log(response.data);
+        console.log(response);
       })
       .catch(error => {
         console.error(error);
       });
   };
-
-  // Makes a recipe search using the Food Array button label
-  const handleInputAndClick = (value) => {
-    setInputRecipeValue(value);
-    makeRecipeRequest(value)
-    .then(response => {
-      setRecipeResponseData(response.data.hits.map(hit => hit.recipe));
-      console.log("Recipe Data: ");
-      console.log(response.data);
-
-    })
-    .catch(error => {
-      console.error(error);
-    });
-};
 
   // Handles quantity counter, if blank the value is 0
   // Only allows integers to be entered
@@ -69,6 +57,20 @@ function App() {
       setCount(count);
     }
   }
+
+  // Makes a recipe search using the Food Array button label
+  const handleInputAndClick = (value) => {
+      makeRecipeRequest(value)
+      .then(response => {
+        setRecipeResponseData(response.data.hits.map(hit => hit.recipe));
+        console.log("Recipe Data: ");
+        console.log(response.data);
+  
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   return (
     <BackGround>
@@ -109,7 +111,7 @@ function App() {
         <SearchingSpan>
           <CardsWrapper>
             {FoodResponseData && <FoodCards FoodResponseData={FoodResponseData} amount={count} onSelectLabel={handleInputAndClick}/>}
-            {RecipeResponseData && <RecipeCards recipes={RecipeResponseData}/>}
+            <RecipeCards recipes={RecipeResponseData} amount={count} savedRecipes={savedRecipes} setSavedRecipes={setSavedRecipes}/>
           </CardsWrapper>
         </SearchingSpan>
       
@@ -120,8 +122,6 @@ function App() {
 const CardsWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding: 10px;
 `
 
 const BackGround = styled.div`

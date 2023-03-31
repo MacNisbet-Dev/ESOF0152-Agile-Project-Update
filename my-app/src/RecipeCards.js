@@ -2,35 +2,75 @@ import styled from 'styled-components';
 import React, { useState } from "react";
 import HoveredRecipeDetails from "./HoveredRecipeDetails";
 
-export function RecipeCards({ recipes }) {
+const SAVE_KEY = "savedRecipes";
+
+export function RecipeCards({ recipes, amount, savedRecipes, setSavedRecipes }) {
   const [hoveredRecipe, setHoveredRecipe] = useState(null);
+  const [showSavedRecipes, setShowSavedRecipes] = useState(false);
+
+  const handleSaveClick = (recipe) => {
+    const newSavedRecipes = { ...savedRecipes, [recipe.uri]: {url: recipe.url, label: recipe.label} };
+    localStorage.setItem(SAVE_KEY, JSON.stringify(newSavedRecipes));
+    setSavedRecipes(newSavedRecipes);
+  };
+  const handleShowSavedClick = () => {
+    setShowSavedRecipes(true);
+  };
+
+  const handleHideSavedClick = () => {
+    setShowSavedRecipes(false);
+  };
+
+  const handleResetSavedClick = () => {
+    localStorage.removeItem(SAVE_KEY);
+    setSavedRecipes({});
+  }
+
+  const savedRecipeLinks = Object.entries(savedRecipes).map(([uri, {url, label}]) => (
+    <li key={uri}>
+      <div>{label}</div>
+      <a href={url}>{uri}</a>
+    </li>
+  ));
 
   return (
-    <FlexContainer>
-      {Array.isArray(recipes) &&
-        recipes.map((recipe, index) => (
-          <CardContainer key={index} onMouseEnter={() => setHoveredRecipe(recipe)} onMouseLeave={() => setHoveredRecipe(null)}>
-            <RecipeCard>
-              <CardHeader>{recipe.label}</CardHeader>
-              <CardImage src={recipe.image} alt={recipe.label} />
-              <CardText>Calories: {recipe.calories.toFixed(2)}</CardText>
-              <CardText>Cuisine Type: {recipe.cuisineType.join(", ")}</CardText>
-              <CardText>Dish Type: {recipe.dishType.join(", ")}</CardText>
-              <CardText>Total Time: {recipe.totalTime} minutes</CardText>
-              <CardText>Health Labels: {recipe.healthLabels.join(", ")}</CardText> 
-              {recipe.cautions.length > 0 && (
-                <CardText>Caution, contains: {recipe.cautions.join(", ")}</CardText>
-              )}
-              <CardText>
-                <a href={recipe.url}>Link to recipe</a>
-              </CardText>
-            </RecipeCard>
-            <DetailContainer>
-              {hoveredRecipe === recipe && <HoveredRecipeDetails recipe={recipe} />}
-            </DetailContainer>
-          </CardContainer>
-        ))}
-    </FlexContainer>
+    <div>
+        <Button onClick={handleShowSavedClick}>Show Saved Recipes</Button>
+        {showSavedRecipes && (
+        <div>
+          <Button onClick={handleHideSavedClick}>Hide Saved Recipes</Button>
+          <ul>{savedRecipeLinks}</ul>
+          <Button onClick={handleResetSavedClick}>Reset Saved Recipes</Button>
+        </div>
+      )}
+      <FlexContainer>
+        {Array.isArray(recipes) &&
+          recipes.map((recipe, index) => (
+            recipe && recipe.dishType && recipe.cuisineType &&
+            <CardContainer key={index} onMouseEnter={() => setHoveredRecipe(recipe)} onMouseLeave={() => setHoveredRecipe(null)}>
+              <RecipeCard>
+                <CardHeader>{recipe.label}</CardHeader>
+                <CardImage src={recipe.image} alt={recipe.label} />
+                <CardText>Calories: {(amount * recipe.calories).toFixed(2)}</CardText>
+                <CardText>Cuisine Type: {recipe.cuisineType.join(", ")}</CardText>
+                <CardText>Dish Type: {recipe.dishType.join(", ")}</CardText>
+                <CardText>Total Time: {recipe.totalTime} minutes</CardText>
+                <CardText>Health Labels: {recipe.healthLabels.join(", ")}</CardText> 
+                {recipe.cautions.length > 0 && (
+                  <CardText>Caution, contains: {recipe.cautions.join(", ")}</CardText>
+                )}
+                <CardText>
+                  <a href={recipe.url}>Link to recipe</a>
+                </CardText>
+                <Button onClick={() => handleSaveClick(recipe)}>Save Recipe</Button>
+              </RecipeCard>
+              <DetailContainer>
+                {hoveredRecipe === recipe && <HoveredRecipeDetails recipe={recipe} amount={amount}/>}
+              </DetailContainer>
+            </CardContainer>
+          ))}
+      </FlexContainer>
+    </div>
   );
 };
 
@@ -93,4 +133,16 @@ const DetailContainer = styled.div`
   height: 80%;
   pointer-events: none; 
   z-index: 9999;
+`;
+
+const Button = styled.button`
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 200px;
+  margin-left: 50px;
+  margin-top: 10px;
 `;
