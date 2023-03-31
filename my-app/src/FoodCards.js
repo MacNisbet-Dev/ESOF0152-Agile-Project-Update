@@ -9,7 +9,7 @@ export function FoodCards({ FoodResponseData, amount, onSelectLabel }) {
       {FoodResponseData.hints.map((hint, index) => {
         const measuresWithQuantity = hint.measures.map(measure => ({
           ...measure,
-          quantity: `${amount} ${measure.label}`
+          quantity: `${(amount / measure.weight).toFixed(5)} ${measure.label}`
         }));
 
         return (

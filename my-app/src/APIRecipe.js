@@ -17,5 +17,12 @@ function createRecipeOptions(value){
 export function makeRecipeRequest(value) { 
   const stringValue = String(value);
   const options = createRecipeOptions(stringValue);
-  return axios.request(options);
+  return axios.request(options)
+    .then(response => {
+      return response;
+    })
+    .catch(error => {
+      console.error(error);
+      throw new Error(`Unable to make recipe request: ${error}`);
+    });
 }
