@@ -24,7 +24,7 @@ const HoveredRecipeDetails = ({ recipe, amount }) => (
     padding: 10px;
     border: 8px solid black;
     border-radius: 40px;
-    margin: 1em 1em;
+    margin: 0 1em;
   `;
   
   const CardText = styled.p`

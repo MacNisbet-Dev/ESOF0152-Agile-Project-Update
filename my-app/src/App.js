@@ -6,6 +6,7 @@ import { makeFoodRequest } from './APIFood.js';
 import { makeRecipeRequest } from './APIRecipe.js';
 import { FoodCards } from './FoodCards.js';
 import { RecipeCards } from './RecipeCards.js';
+import ScrollToTopButton from './ScrollToTopButton.js';
 
 const SAVE_KEY = "savedRecipes";
 
@@ -114,7 +115,7 @@ function App() {
             <RecipeCards recipes={RecipeResponseData} amount={count} savedRecipes={savedRecipes} setSavedRecipes={setSavedRecipes}/>
           </CardsWrapper>
         </SearchingSpan>
-      
+      <ScrollToTopButton/>
     </BackGround>
   );
 }
