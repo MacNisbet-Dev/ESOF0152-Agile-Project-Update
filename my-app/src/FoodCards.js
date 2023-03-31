@@ -5,16 +5,12 @@ import React from "react";
 // Trying to figure out how to use the measures values to calculate certain amounts
 export function FoodCards({ FoodResponseData, amount, onSelectLabel }) {
   return (
-    <div>
+    <FlexContainer>
       {FoodResponseData.hints.map((hint, index) => {
         const measuresWithQuantity = hint.measures.map(measure => ({
           ...measure,
           quantity: `${amount} ${measure.label}`
         }));
-
-        const handleLabelSelect = () => {
-          onSelectLabel(hint.food.label);
-        };
 
         return (
           <CardContainer key={index}>
@@ -54,7 +50,7 @@ export function FoodCards({ FoodResponseData, amount, onSelectLabel }) {
                 </tr>
               </tbody>
               </table>
-              <Button onClick={handleLabelSelect}>Search Recipes</Button>
+              <Button onClick={() => onSelectLabel(hint.food.label)}>Search Recipes</Button>
               <CardMeasure>Serving Quantity Measure</CardMeasure>
                     {measuresWithQuantity.map((measure, index) => (
                               <li key={index}>
@@ -66,7 +62,7 @@ export function FoodCards({ FoodResponseData, amount, onSelectLabel }) {
               </CardContainer> 
           );
         })}
-     </div>
+     </FlexContainer>
   );
 }
 
@@ -100,7 +96,7 @@ const CardContainer = styled.div`
   max-width: 300px;
   transition: box-shadow 0.3s ease-in-out; 
   box-shadow: none; 
-  
+
   &:hover {
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3); 
   }
@@ -129,3 +125,10 @@ const Button = styled.button`
   margin-left: 50px;
   margin-top: 10px;
 `;
+
+const FlexContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-right: 10px solid #4f9b7b;
+`

@@ -35,12 +35,27 @@ function App() {
       .then(response => {
         setRecipeResponseData(response.data.hits.map(hit => hit.recipe));
         console.log("Recipe Data: ");
-        console.log(response);
+        console.log(response.data);
       })
       .catch(error => {
         console.error(error);
       });
   };
+
+  // Makes a recipe search using the Food Array button label
+  const handleInputAndClick = (value) => {
+    setInputRecipeValue(value);
+    makeRecipeRequest(value)
+    .then(response => {
+      setRecipeResponseData(response.data.hits.map(hit => hit.recipe));
+      console.log("Recipe Data: ");
+      console.log(response.data);
+
+    })
+    .catch(error => {
+      console.error(error);
+    });
+};
 
   // Handles quantity counter, if blank the value is 0
   // Only allows integers to be entered
@@ -93,7 +108,7 @@ function App() {
 
         <SearchingSpan>
           <CardsWrapper>
-            {FoodResponseData && <FoodCards FoodResponseData={FoodResponseData} amount={count} onSelectLabel={setInputRecipeValue}/>}
+            {FoodResponseData && <FoodCards FoodResponseData={FoodResponseData} amount={count} onSelectLabel={handleInputAndClick}/>}
             {RecipeResponseData && <RecipeCards recipes={RecipeResponseData}/>}
           </CardsWrapper>
         </SearchingSpan>
@@ -105,6 +120,8 @@ function App() {
 const CardsWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
 `
 
 const BackGround = styled.div`

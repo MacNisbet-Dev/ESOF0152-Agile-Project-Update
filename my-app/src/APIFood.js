@@ -1,26 +1,25 @@
 import axios from "axios";
 // q param is query text, in this case the value the user entered
+
 function createOptions(value){
-const Options = {
-  method: 'GET',
-  url: 'https://edamam-food-and-grocery-database.p.rapidapi.com/api/food-database/v2/parser',
-  params: {
-    app_id: '6cdc99ad',
-    app_key: '4a0180e5749b1dcad2d55ab732d61721	',
-    ingr: value,
-    'category[0]': 'generic-foods',
-    'health[0]': 'alcohol-free',
-    'nutrition-type': 'cooking'
-    
-  },
-  headers: {
-    'X-RapidAPI-Key': '7692bae7cfmshac9d83a53f8151bp19f475jsn305a0583021f',
-    'X-RapidAPI-Host': 'edamam-food-and-grocery-database.p.rapidapi.com'
-  }
-};
+  const Options = {
+    method: 'GET',
+    url: 'https://edamam-food-and-grocery-database.p.rapidapi.com/api/food-database/v2/parser',
+    params: {
+      app_id: process.env.REACT_APP_EDAMAM_API_ID,
+      app_key: process.env.REACT_APP_EDAMAM_API_KEY,
+      ingr: value,
+      'category[0]': 'generic-foods',
+      'health[0]': 'alcohol-free',
+      'nutrition-type': 'cooking'
+    },
+    headers: {
+      'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY,
+      'X-RapidAPI-Host': process.env.REACT_APP_RAPIDAPI_HOST
+    }
+  };
   return Options;
 }
-
 // Handles the API requests
 export function makeFoodRequest(value) { 
   const options = createOptions(value);

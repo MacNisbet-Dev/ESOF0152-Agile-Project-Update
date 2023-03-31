@@ -1,56 +1,70 @@
 import styled from 'styled-components';
-import React from "react";
+import React, { useState } from "react";
+import HoveredRecipeDetails from "./HoveredRecipeDetails";
 
-// Renders full array of returned results
-// Trying to figure out how to use the measures values to calculate certain amounts
-export function RecipeCards({ recipes }){
+export function RecipeCards({ recipes }) {
+  const [hoveredRecipe, setHoveredRecipe] = useState(null);
+
   return (
-    <RecipeCard>
-      <CardContainer>
-        {Array.isArray(recipes) && recipes.map((recipe, index) => (
-          <RecipeItem key={index}>
-            <CardHeader>{recipe.label}</CardHeader>
-            <CardImage src={recipe.image} alt={recipe.label} />
-            <CardText>Calories: {recipe.calories.toFixed(2)}</CardText>
-            <CardText>Cuisine Type: {recipe.cuisineType.join(', ')}</CardText>
-            <CardText><a href={recipe.url}>Link to recipe</a></CardText>
-            
-          </RecipeItem>
+    <FlexContainer>
+      {Array.isArray(recipes) &&
+        recipes.map((recipe, index) => (
+          <CardContainer key={index} onMouseEnter={() => setHoveredRecipe(recipe)} onMouseLeave={() => setHoveredRecipe(null)}>
+            <RecipeCard>
+              <CardHeader>{recipe.label}</CardHeader>
+              <CardImage src={recipe.image} alt={recipe.label} />
+              <CardText>Calories: {recipe.calories.toFixed(2)}</CardText>
+              <CardText>Cuisine Type: {recipe.cuisineType.join(", ")}</CardText>
+              <CardText>Dish Type: {recipe.dishType.join(", ")}</CardText>
+              <CardText>Total Time: {recipe.totalTime} minutes</CardText>
+              <CardText>Health Labels: {recipe.healthLabels.join(", ")}</CardText> 
+              {recipe.cautions.length > 0 && (
+                <CardText>Caution, contains: {recipe.cautions.join(", ")}</CardText>
+              )}
+              <CardText>
+                <a href={recipe.url}>Link to recipe</a>
+              </CardText>
+            </RecipeCard>
+            <DetailContainer>
+              {hoveredRecipe === recipe && <HoveredRecipeDetails recipe={recipe} />}
+            </DetailContainer>
+          </CardContainer>
         ))}
-      </CardContainer>
-    </RecipeCard>
+    </FlexContainer>
   );
 };
+
 const CardHeader = styled.header`
   font-size: 40px;
   font-weight: bold;
   padding-left: 30px;
   margin-bottom: 10px;
-`
+`;
 
 const CardText = styled.p`
   font-size: 20px;
   padding-left: 30px;
-`
+`;
 
 const CardContainer = styled.div`
-  background-color: #e8efe6;
+  background-color: #FED8D0;
+  position: relative;
   margin-top: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-right: 20px;
   border: 8px solid black;
   border-radius: 40px;
-  margin-right: 150px;
+  margin-right: 20px;
   margin-left: 10px;
+  padding-right: 40px;
   min-width: 200px;
   max-width: 300px;
-`
-const RecipeItem = styled.li`
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
+  transition: box-shadow 0.3s ease-in-out; 
+  box-shadow: none; 
+  
+  &:hover {
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3); 
+  }
 `;
 
 const RecipeCard = styled.div`
@@ -63,4 +77,20 @@ const CardImage = styled.img`
   margin-left: 20px;
   border-radius: 30px;
   border: 6px solid black;
-`
+`;
+
+const FlexContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const DetailContainer = styled.div`
+  position: absolute;
+  left: -350px; 
+  bottom: 200px;
+  width: 350px; 
+  height: 80%;
+  pointer-events: none; 
+  z-index: 9999;
+`;
