@@ -6,7 +6,7 @@ function createRecipeOptions(value){
     url: 'https://edamam-recipe-search.p.rapidapi.com/search',
     params: {q: value},
     headers: {
-      'X-RapidAPI-Key': '7692bae7cfmshac9d83a53f8151bp19f475jsn305a0583021f',
+      'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY,
       'X-RapidAPI-Host': 'edamam-recipe-search.p.rapidapi.com'
     }
   };
