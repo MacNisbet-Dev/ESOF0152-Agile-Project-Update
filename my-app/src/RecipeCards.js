@@ -82,7 +82,7 @@ const CardHeader = styled.header`
 `;
 
 const CardText = styled.p`
-  font-size: 20px;
+  font-size: 23px;
   padding-left: 30px;
 `;
 
@@ -98,7 +98,7 @@ const CardContainer = styled.div`
   margin-left: 10px;
   padding-right: 40px;
   min-width: 200px;
-  max-width: 300px;
+  max-width: 350px;
   transition: box-shadow 0.3s ease-in-out; 
   box-shadow: none; 
   

@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 import React from "react";
+import CaloriesIcon from "./NutrientIcons/Calories.png"
+import CarbsIcon from "./NutrientIcons/Carbs.png"
+import FatIcon from "./NutrientIcons/Fats.png"
+import ProteinIcon from "./NutrientIcons/Protein.png"
+import {RenderIcon} from './RenderIcon.js';
 
 // Renders full array of returned results
 // Trying to figure out how to use the measures values to calculate certain amounts
@@ -27,24 +32,29 @@ export function FoodCards({ FoodResponseData, amount, onSelectLabel }) {
           <table>
             <thead>
                   <tr>
+                    <th></th>
                     <th>Nutrient</th>
                     <th>Amount</th>
                   </tr>
             </thead>
               <tbody>
                 <tr>
+                  <td><RenderIcon image={CaloriesIcon} size={30}/></td>
                   <td>Calories</td>
                   <td>{Math.round(amount * hint.food.nutrients.ENERC_KCAL * 100) / 100} kcal</td>
                 </tr>
                 <tr>
+                  <td><RenderIcon image={FatIcon} size={30}/></td>
                   <td>Fat</td>
                   <td>{Math.round(amount * hint.food.nutrients.FAT * 100) / 100} grams</td>
                 </tr>
                 <tr>
+                  <td><RenderIcon image={ProteinIcon} size={30}/></td>
                   <td>Protein</td>
                   <td>{Math.round(amount * hint.food.nutrients.PROCNT * 100) / 100} grams</td>
                 </tr>
                 <tr>
+                  <td><RenderIcon image={CarbsIcon} size={30}/></td>
                   <td>Carbs</td>
                   <td>{Math.round(amount * hint.food.nutrients.CHOCDF * 100) / 100} grams</td>
                 </tr>
@@ -74,7 +84,7 @@ const CardHeader = styled.header`
 `
 
 const CardText = styled.p`
-  font-size: 20px;
+  font-size: 23px;
   padding-left: 25px;
 `
 const CardMeasure = styled.p`
@@ -93,7 +103,7 @@ const CardContainer = styled.div`
   margin-left: 10px;
   padding-right: 40px;
   min-width: 200px;
-  max-width: 300px;
+  max-width: 330px;
   transition: box-shadow 0.3s ease-in-out; 
   box-shadow: none; 
 

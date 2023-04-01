@@ -53,9 +53,10 @@ const ScrollToTopButton = () => {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
     text-align: center;
+    font-size: 20px;
     transition: opacity 0.3s ease-in-out;
   
     &:hover {
