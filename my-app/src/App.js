@@ -8,7 +8,16 @@ import { FoodCards } from './FoodCards.js';
 import { RecipeCards } from './RecipeCards.js';
 import ScrollToTopButton from './ScrollToTopButton.js';
 
+// Local save key to save recipes
 const SAVE_KEY = "savedRecipes";
+
+/**
+ * Main app component
+ * Has 6 states, InputFood/RecipeValue holds the search bar values
+ * Food/Recipe ResponseData is used to display the data in the recipe cards
+ * Count is used to change the quantiy of the searched for food/recipe
+ * savedRecipe holds the local saved recipes
+ */
 
 function App() {
   const [InputFoodValue, setInputFoodValue] = useState('');
@@ -33,7 +42,8 @@ function App() {
   };
 
   // Handles recipe button click
-  // Can use saved ingredient
+  // Can use saved ingredients
+  // Passes values to recipe card component
   const handleClick2 = () => {
     makeRecipeRequest(InputRecipeValue)
       .then(response => {
@@ -46,8 +56,9 @@ function App() {
       });
   };
 
-  // Handles quantity counter, if blank the value is 0
+  // Handles quantity bar, if blank the value is 0
   // Only allows integers to be entered
+  // Has a max value to prevent overflow from the card
   function handleCountChange(event) {
     const input = event.target.value;
     if (input === '') {
@@ -59,7 +70,8 @@ function App() {
     }
   }
 
-  // Makes a recipe search using the Food Array button label
+  // Makes a recipe search using the Food Card button
+  // Passes values to the recipie card component
   const handleInputAndClick = (value) => {
       makeRecipeRequest(value)
       .then(response => {
@@ -120,6 +132,7 @@ function App() {
   );
 }
 
+// Styled components, used to write CSS within a file
 const CardsWrapper = styled.div`
   display: flex;
   flex-direction: row;

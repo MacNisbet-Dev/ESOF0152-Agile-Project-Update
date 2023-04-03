@@ -4,28 +4,43 @@ import HoveredRecipeDetails from "./HoveredRecipeDetails";
 
 const SAVE_KEY = "savedRecipes";
 
+/**
+ * This component renders the array of hints passed from the APIRecipe functions
+ * Takes the response data from APIRecipe, the amount from app.js quantity, and can return the label of the card that was pressed
+ * The number of calories is multiplied by the quantity
+ * Uses the index to sort the cards
+ * hoveredSavedRecipe is used to store the data of the card being hovered over
+ * Those details are passed to the HoveredRecipeDetails component
+ * showSavedRecipes is a toggleable state to show the list of saved recipes
+ * Uses the hints in the same way as the food card component with respect to the new API..
+ * to display relevant details about the recipe that was searched for, either by entering in the search bar...
+ * or by the search recieps button on the food card component
+ */
 export function RecipeCards({ recipes, amount, savedRecipes, setSavedRecipes }) {
   const [hoveredRecipe, setHoveredRecipe] = useState(null);
   const [showSavedRecipes, setShowSavedRecipes] = useState(false);
 
+  // Saves the label and URL of the recipe card clicked
   const handleSaveClick = (recipe) => {
     const newSavedRecipes = { ...savedRecipes, [recipe.uri]: {url: recipe.url, label: recipe.label} };
     localStorage.setItem(SAVE_KEY, JSON.stringify(newSavedRecipes));
     setSavedRecipes(newSavedRecipes);
   };
+  // Toggles show saved recipes on
   const handleShowSavedClick = () => {
     setShowSavedRecipes(true);
   };
-
+  // Toggles show saved recipes off
   const handleHideSavedClick = () => {
     setShowSavedRecipes(false);
   };
-
+  // Deletes the saved recipes (resets to default)
   const handleResetSavedClick = () => {
     localStorage.removeItem(SAVE_KEY);
     setSavedRecipes({});
   }
-
+  
+  // HTML list used to save the recipe labels and URLs
   const savedRecipeLinks = Object.entries(savedRecipes).map(([uri, {url, label}]) => (
     <li key={uri}>
       <div>{label}</div>

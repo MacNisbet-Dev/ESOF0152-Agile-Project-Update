@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
+/**
+ * Hovered recipe details is an extension of the recipe cards component
+ * Holds the specific recipe that is being hovered over and is passed the quantity from app.js
+ * Uses the intredients portion of the recipe to display all the used ingredients
+ * Uses the nutrient daily/total to display the amount of micronutrients from the quantity of servings
+ * Is set to hidden again after it's no longer being hovered over
+ */
 const HoveredRecipeDetails = ({ recipe, amount }) => (
   <RecipeDetails>
     <h3>{recipe.label}</h3>

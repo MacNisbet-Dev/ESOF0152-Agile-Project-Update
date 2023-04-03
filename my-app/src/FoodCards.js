@@ -6,8 +6,16 @@ import FatIcon from "./NutrientIcons/Fats.png"
 import ProteinIcon from "./NutrientIcons/Protein.png"
 import {RenderIcon} from './RenderIcon.js';
 
-// Renders full array of returned results
-// Trying to figure out how to use the measures values to calculate certain amounts
+/**
+ * This component renders the array of hints passed from the APIFood functions
+ * Takes the response data from APIFood, the amount from app.js quantity, and can return the label of the card that was pressed
+ * The number of calories is multiplied by the quantity
+ * The API has natural word processing capabilities so if the user entered "3 slices of pizza" it should be able to ...
+ * return the calories for '3 slices' if it matched, I couldn't figure that out
+ * So instead just returns full measures array and multplies by the quantity
+ * Results are tabluated with a little icon beside them
+ * Uses the index to sort the cards
+ */
 export function FoodCards({ FoodResponseData, amount, onSelectLabel }) {
   return (
     <FlexContainer>

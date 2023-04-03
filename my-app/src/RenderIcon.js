@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// Similar setup to the renderLogo but automatically returns the image name as the alt label by removing everything after the file extension
 export function RenderIcon({size, image}){
     return(
         <RenderLogo>

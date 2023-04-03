@@ -1,0 +1,32 @@
+*** Kitchen Treasures User Guide v1.0 ***
+
+--- RUNNING ON LOCAL MACHINE INSTRUCTIONS ---
+You can run the Kitchen Treasures application on your local machine by first navigating to the install folder using your terminal of choice (cd /install_folder -> cd/my_app).
+Next, make sure Node.js is installed. 
+Then run /npm install, followed by /npm run, which will run the application on localhost port 3000. 
+You can then make any local changes and see the updates by saving (ctrl+s) the modified file. 
+Refer to the website/app instructions for instructions on how to use the application. 
+
+--- WEBSITE/APP INSTRUCTIONS ---
+Navigate to one of these two links to open up Kitchen Treasures:
+Deploy Link: https://quiet-duckanoo-4ebe6f.netlify.app/
+Permalink: https://6428ad65ab8bc475af3e4050--quiet-duckanoo-4ebe6f.netlify.app/
+
+Once the page has loaded, there are 3 search bars, and two buttons.
+The search bar labeled "search for ingredients" is used to search for a specific food.
+After a food of your choice is entered in the search bar, you can click "search for ingredients", which will display all the relevant foods the API can find.
+The third search bar, Quantity, defaults to 1 and allows you to change the amount of servings you are searching for. The cards will updated when quantity is changed.
+The quantity bar can only hold integers and up to a certain amount.
+The Calories, Fat, Protein, and Carbs returned are the macronutrients related to that particular food in the Edamam database (multiplied by the quantity entered).
+The measure list underneath is relatively unfunctional, but shows you the quantity amount relative to 1 gram of the food. 
+E.g if a serving is 50 grams, entering 1 in the quantity will show you the serving is .02, and that can be used to figure out the serving size. This will be improved on in the future.
+By using the second search bar labeled "search for recipes" and pressing the search recipes button you can search for recipes in the same way. 
+Each food card also has a "search recipes" button which will allow you to search for recipes using the specific label of the food card whos button you clicked on. 
+The recipe cards display the calories multiplied by the quantity in the same way as the food cards, the culture its from (french, american), the dish type (drink, sauce, meal) ...
+the prep time in minutes, the health labels (alcohol free, peanut-free, vegan), any hazards in the recipe if there are any (contains peanuts, shellfish), and the URL to the website the recipe is hosted on.
+Hovering over the card or tapping it on mobile will reveal more details about the recipe including the ingredients and micronutrients. 
+Pressing the "Save Recipe" button stores the Label (food name) and the URL locally so that when the "Show Saved Recipes" button at the top of the recipe flex box is pressed it will display the list of saved recipes. 
+This will also show the "hide saved recipes" and "reset saved recipes" buttons, pressing the hide button will hide the list and the "reset saved recipes" button, which deletes the saved recipes. The URLs also link to their related websites, not to other pages in the react app.
+If the user scrolls below 200 pixels a "scroll to top" button will appear, when pressed it moves the user back to the top of the page and hides itself again.
+If any unsavory or incorrect data is entered into the food or recipe search fields, the console will log an error. There may also be an error with the RecipeAPI since it is rate limited to 1000 uses per month.
+Happy searching!

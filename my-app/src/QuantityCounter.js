@@ -1,5 +1,9 @@
 import React from 'react';
 
+/**
+ * Quantity counter was a component used to move the quantity amount up or down by 1
+ * Ended up not using it since entering the number is faster in almost every circumstance
+ */
 export function QuantityCounter(props) {
     const [count, setCount] = React.useState(props.initialCount || 0);
   

@@ -1,5 +1,10 @@
 import axios from "axios";
-// q param is query text, in this case the value the user entered
+/*
+Create options makes a GET request from the edamam API
+ingr: value is the search value, the categories can be used to filter
+RapidAPI is the service used to make the call, the key and host header is required
+Internal function, used by the makeFoodRequests function
+*/
 
 function createOptions(value){
   const Options = {
@@ -20,7 +25,12 @@ function createOptions(value){
   };
   return Options;
 }
-// Handles the API requests
+/*
+makeFoodRequest is a public function that calls createOptions to make an array of hints with the request
+response.data holds the array of hints which is all the values of the API
+Automatic error handling, prints to console on error
+Returns the response.data to the app.js component
+*/
 export function makeFoodRequest(value) { 
   const options = createOptions(value);
   return axios.request(options)
