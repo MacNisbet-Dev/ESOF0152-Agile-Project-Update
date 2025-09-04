@@ -3,14 +3,16 @@ import axios from "axios";
 export async function handler(event) {
   try {
     const { value } = JSON.parse(event.body);
+
     const EDAMAM_ID = process.env.EDAMAM_API_ID;
     const EDAMAM_KEY = process.env.EDAMAM_API_KEY;
     const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;
     const RAPIDAPI_HOST = process.env.RAPIDAPI_HOST_EDAMAM;
+    const EDAMAM_URL = process.env.EDAMAM_URL;
 
     const options = {
       method: "GET",
-      url: "https://edamam-food-and-grocery-database.p.rapidapi.com/api/food-database/v2/parser",
+      url: EDAMAM_URL,
       params: {
         app_id: EDAMAM_ID,
         app_key: EDAMAM_KEY,
@@ -26,6 +28,7 @@ export async function handler(event) {
     };
 
     const response = await axios.request(options);
+
     return {
       statusCode: 200,
       body: JSON.stringify(response.data),
