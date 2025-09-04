@@ -1,5 +1,3 @@
-import axios from "axios";
-
 /*
 Create options makes a GET request from the Tasty API via RapidAPI
 q: the search query
@@ -32,19 +30,16 @@ Dropped in favour of normalizing the data
 * errors are logged and re-thrown for handling in the UI
 */
 export async function makeRecipeRequest(value) {
-  const options = {
-    method: "GET",
-    url: "https://tasty.p.rapidapi.com/recipes/list",
-    params: { q: value, from: 0, size: 20 },
-    headers: {
-      "X-RapidAPI-Key": process.env.REACT_APP_RAPIDAPI_KEY,
-      "X-RapidAPI-Host": process.env.REACT_APP_RAPIDAPI_HOST_TASTY
-    }
-  };
-
   try {
-    const response = await axios.request(options);
-    const recipes = normalizeTastyResponse(response.data);
+    const response = await fetch("/.netlify/functions/recipeRequest", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ value }),
+    });
+
+    if (!response.ok) throw new Error("Network response was not ok");
+
+    const recipes = await response.json();
     console.log("Normalized recipes:", recipes);
     return recipes;
   } catch (error) {
