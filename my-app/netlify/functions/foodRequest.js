@@ -1,6 +1,6 @@
-import axios from "axios";
+const axios = require("axios");
 
-export async function handler(event) {
+exports.handler = async function(event) {
   try {
     const { value } = JSON.parse(event.body);
 
@@ -40,4 +40,4 @@ export async function handler(event) {
       body: JSON.stringify({ error: "Failed to fetch food data" }),
     };
   }
-}
+};
