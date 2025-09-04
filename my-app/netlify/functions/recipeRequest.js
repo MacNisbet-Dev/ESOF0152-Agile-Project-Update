@@ -7,11 +7,11 @@ function normalizeTastyRecipe(recipe) {
     image: recipe.thumbnail_url || recipe.beauty_url || "",
     description: recipe.description || "",
     ingredients:
-      recipe.sections?.flatMap(
-        (section) => section.components?.map((c) => c.raw_text) || []
+      recipe.sections?.flatMap(section =>
+        section.components?.map(c => c.raw_text) || []
       ) || [],
     instructions:
-      recipe.instructions?.map((step) => step.display_text) || [],
+      recipe.instructions?.map(step => step.display_text) || [],
     video:
       recipe.youtube_url ||
       recipe.original_video_url ||
@@ -29,13 +29,16 @@ export async function handler(event) {
   try {
     const { value } = JSON.parse(event.body);
 
+    const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;
+    const RAPIDAPI_HOST = process.env.RAPIDAPI_HOST_TASTY;
+
     const options = {
       method: "GET",
       url: "https://tasty.p.rapidapi.com/recipes/list",
       params: { q: value, from: 0, size: 20 },
       headers: {
-        "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
-        "X-RapidAPI-Host": process.env.RAPIDAPI_HOST_TASTY,
+        "X-RapidAPI-Key": RAPIDAPI_KEY,
+        "X-RapidAPI-Host": RAPIDAPI_HOST,
       },
     };
 
