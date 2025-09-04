@@ -31,10 +31,11 @@ export async function handler(event) {
 
     const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;
     const RAPIDAPI_HOST = process.env.RAPIDAPI_HOST_TASTY;
+    const TASTY_URL = process.env.TASTY_URL;
 
     const options = {
       method: "GET",
-      url: "https://tasty.p.rapidapi.com/recipes/list",
+      url: TASTY_URL,
       params: { q: value, from: 0, size: 20 },
       headers: {
         "X-RapidAPI-Key": RAPIDAPI_KEY,
